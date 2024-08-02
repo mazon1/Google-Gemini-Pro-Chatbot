@@ -1,15 +1,20 @@
 import streamlit as st
 import google.generativeai as genai
+import os
 
 # Set up the API key
-GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
-
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', st.secrets.get("GOOGLE_API_KEY"))
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Function to generate response from the model
 def generate_response(prompt):
-    response = genai.GenerativeModel('gemini-pro').generate(prompt=prompt)
-    return response['generated_text']
+    try:
+        model = genai.models.get("gemini-pro")
+        response = model.generate(prompt=prompt)
+        return response['generated_text']
+    except Exception as e:
+        st.error(f"Error generating response: {e}")
+        return "Sorry, I couldn't process your request."
 
 # Streamlit app
 def main():
