@@ -6,11 +6,16 @@ import os
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', st.secrets.get("GOOGLE_API_KEY"))
 genai.configure(api_key=GOOGLE_API_KEY)
 
+
 # Function to generate response from the model
 def generate_response(prompt):
-    model = genai.GenerativeModel('gemini-pro')
-    response = genai.GenerativeModel('gemini-pro').generate(prompt=prompt)
-
+    try:
+        model = genai.GenerativeModel('gemini-pro')
+        response = model.generate_content(prompt=prompt)
+        return response.text
+    except Exception as e:
+        st.error(f"Error generating response: {e}")
+        return "Sorry, I couldn't process your request."
 
 # Streamlit app
 def main():
