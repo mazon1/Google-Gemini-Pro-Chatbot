@@ -6,6 +6,7 @@ import os
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', st.secrets.get("GOOGLE_API_KEY"))
 genai.configure(api_key=GOOGLE_API_KEY)
 
+
 # Function to generate response from the model
 def generate_response(prompt):
     try:
@@ -13,9 +14,9 @@ def generate_response(prompt):
         response = model.generate_content(prompt)  # Pass the prompt directly
         
         # Debug: Print the response structure
-        st.write(response)
+        # st.write(response) # Comment out for brevity
 
-        return response.generated_text  # Assuming 'generated_text' is an attribute of the response object
+        return response.text  # Use 'text' attribute instead of 'generated_text'
     except Exception as e:
         st.error(f"Error generating response: {e}")
         return "Sorry, I couldn't process your request."
