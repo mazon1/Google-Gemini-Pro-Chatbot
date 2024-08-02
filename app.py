@@ -9,7 +9,8 @@ genai.configure(api_key=GOOGLE_API_KEY)
 # Function to generate response from the model
 def generate_response(prompt):
     try:
-        model = genai.models.get("gemini-pro")
+        
+        model = genai.GenerativeModel('gemini-pro')
         response = model.generate(prompt=prompt)
         return response['generated_text']
     except Exception as e:
