@@ -11,7 +11,11 @@ def generate_response(prompt):
     try:
         model = genai.GenerativeModel('gemini-pro')
         response = model.generate_content(prompt)  # Pass the prompt directly
-        return response['generated_text']  # Assuming 'generated_text' is the key for the response text
+        
+        # Debug: Print the response structure
+        st.write(response)
+
+        return response.generated_text  # Assuming 'generated_text' is an attribute of the response object
     except Exception as e:
         st.error(f"Error generating response: {e}")
         return "Sorry, I couldn't process your request."
