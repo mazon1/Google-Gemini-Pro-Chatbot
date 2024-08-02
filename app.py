@@ -11,7 +11,7 @@ def generate_response(prompt):
     try:
         
         model = genai.GenerativeModel('gemini-pro')
-        response = model.generate_content(prompt=prompt)
+        response = model.generate_content(prompt)
         
         return response['generated_text']
     except Exception as e:
