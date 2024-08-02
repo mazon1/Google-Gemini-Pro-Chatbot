@@ -8,12 +8,16 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 # Function to generate response from the model
 def generate_response(prompt):
-    try:
+    model = genai.GenerativeModel('gemini-pro')
+    response = genai.GenerativeModel('gemini-pro').generate(prompt=prompt)
+#     return response['generated_text']
+# def generate_response(prompt):
+#     try:
         
-        model = genai.GenerativeModel('gemini-pro')
-        response = model.generate_content(prompt)
+#         model = genai.GenerativeModel('gemini-pro')
+#         response = model.generate_content(prompt)
         
-        return response['generated_text']
+#         return response['generated_text']
     except Exception as e:
         st.error(f"Error generating response: {e}")
         return "Sorry, I couldn't process your request."
