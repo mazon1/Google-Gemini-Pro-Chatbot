@@ -6,13 +6,12 @@ import os
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', st.secrets.get("GOOGLE_API_KEY"))
 genai.configure(api_key=GOOGLE_API_KEY)
 
-
 # Function to generate response from the model
 def generate_response(prompt):
     try:
         model = genai.GenerativeModel('gemini-pro')
-        response = model.generate_content(prompt=prompt)
-        return response.text
+        response = model.generate_content(prompt)  # Pass the prompt directly
+        return response['generated_text']  # Assuming 'generated_text' is the key for the response text
     except Exception as e:
         st.error(f"Error generating response: {e}")
         return "Sorry, I couldn't process your request."
